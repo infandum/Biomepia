@@ -39,8 +39,8 @@ public class HexGenerator : MonoBehaviour
         _tileXOffSet = _size;
         _tileZOffSet = (Mathf.Sqrt(3) * _size);
 
-        float tileXmax = _width  * _pivot.x;
-        float tileZmax = (_length - _tileZOffSet) * _pivot.z;
+        float tileXmax = _width  * _pivot.x - 0.25f;
+        float tileZmax = (_length) * _pivot.z - 2;
 
         for (float x = 0; x < _width; x++)
         {
