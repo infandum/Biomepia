@@ -19,8 +19,21 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	virtual void OnConstruction(const FTransform& Transform) override;
+
+	void CreateHexagonalHexMap();
+private:
+	static FVector HexCorners(FVector center, float size, int sideIndex, bool isPointyHex = true);
+	static FVector PointOnCircle(float rad, float radius);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere)
+	UStaticMesh* m_HexagonMesh;
+
+	UPROPERTY(/*EditAnywhere*/)
+	UStaticMeshComponent* m_Mesh;
 
 };
