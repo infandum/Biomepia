@@ -7,12 +7,18 @@ using UnityEngine;
 [CustomEditor(typeof(HexGenerator))]
 public class HexGeneratorEditor : Editor
 {
+    //AnimationCurve curveX = AnimationCurve.Linear(0, 0, 10, 10);
+    //AnimationCurve curveY = AnimationCurve.Linear(0, 0, 10, 10);
+    //AnimationCurve curveZ = AnimationCurve.Linear(0, 0, 10, 10);
+
 
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        //DrawDefaultInspector();
         HexGenerator hexGenerator = (HexGenerator) target;
         hexGenerator.HeightMap = (Texture2D)EditorGUILayout.ObjectField("Height map:", hexGenerator.HeightMap, typeof(Texture2D), true);
+        hexGenerator.HeightMultiplier = EditorGUILayout.FloatField("Height Multiplier:", hexGenerator.HeightMultiplier);
+        hexGenerator.HeightGrowth = EditorGUILayout.FloatField("Height Growth:", hexGenerator.HeightGrowth);
 
         hexGenerator.IsGenerateRect = EditorGUILayout.Toggle("Generate Rect:", hexGenerator.IsGenerateRect);
 
@@ -36,5 +42,9 @@ public class HexGeneratorEditor : Editor
         {
             hexGenerator.GenerateMap();
         }
+
+        //curveX = EditorGUILayout.CurveField("Animation on X", curveX);
+        //curveY = EditorGUILayout.CurveField("Animation on Y", curveY);
+        //curveZ = EditorGUILayout.CurveField("Animation on Z", curveZ);
     }
 }

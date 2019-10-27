@@ -8,9 +8,13 @@ public class HexGenerator : MonoBehaviour
     [SerializeField] private GameObject _hexGameObject;
     public Vector2Int RectSize = new Vector2Int(10, 10);
     public int HexRadius = 14;
-    public List<Color> HeighColors;
+
+    public List<HexTile> HexTiles;
 
     public Texture2D HeightMap;
+    [SerializeField] private Texture2D HeighIndexMap;
+    public float HeightMultiplier = 1.0f;
+    public float HeightGrowth = 1.0f;
 
     private Vector3 _pivot = new Vector3(0.5f, 0.5f, 0.5f);
 
@@ -23,15 +27,18 @@ public class HexGenerator : MonoBehaviour
 
     public bool IsGenerateRect = true;
     public bool IsOnlyInsideCollidor = false;
+
+    
     // Start is called before the first frame update
     void Start()
     {
-        GenerateMap();
+
     }
 
     public void GenerateMap()
     {
-        GetHeightFromTexture();
+        HexTiles = new List<HexTile>();
+
         while (transform.childCount > 0)
         {
             Helper.SafeDestroy(transform.GetChild(0).gameObject);
@@ -55,19 +62,12 @@ public class HexGenerator : MonoBehaviour
         else
             CreateHexagonalHexMap();
 
-        var mat = new Material(transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial);
-        for (int i = 0; i < HeighColors.Count; i++)
-        {
-            var newMat = Material.Instantiate(mat);
-            newMat.name = HeighColors[i].ToString();
-            newMat.SetColor("_BaseColor", HeighColors[i]);
-            transform.GetChild(i).GetComponent<MeshRenderer>().sharedMaterial = newMat;
-            transform.GetChild(i).position = new Vector3(transform.GetChild(i).position.x, HeighColors[i].grayscale, transform.GetChild(i).position.z);
-        }
+        GenerateHeightFromTexture();
     }
 
-    // Update is called once per frame
-    public void CreateRectHexMap()
+
+
+    private void CreateRectHexMap()
     {
         _tileXOffSet = _size;
         _tileZOffSet = (Mathf.Sqrt(3) * _size);
@@ -108,12 +108,13 @@ public class HexGenerator : MonoBehaviour
         }
     }
 
-
-    
-    public void CreateHexagonalHexMap()
+    private void CreateHexagonalHexMap()
     {
         GameObject hex = Instantiate(_hexGameObject, transform);
         hex.name = "Hex:" + 0 + "x" + 0;
+        SetHexagonTile(hex, new Vector3(), 0, 0);
+
+        RectSize = new Vector2Int(HexRadius * 2, HexRadius * 2);
 
         _tileZOffSet = (Mathf.Sqrt(3) * _size);
         for (int x = 1; x <= HexRadius; x++)
@@ -177,7 +178,35 @@ public class HexGenerator : MonoBehaviour
             }
         }
     }
+    private void GenerateHeightFromTexture()
+    {
+        HeighIndexMap = new Texture2D(HeightMap.width, HeightMap.height);
+        var mat = new Material(transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial);
+        for (int i = 0; i < HexTiles.Count; i++)
+        {
+            Material newMat = Instantiate(mat);
+            if (HeightMap != null)
+            {
+                var posX = Mathf.RoundToInt(HexTiles[i].HeightUV.u * HeightMap.width);
+                var posY = Mathf.RoundToInt(HexTiles[i].HeightUV.v * HeightMap.width);
+                var elevation = GetHeightFromTexture(posX, posY);
 
+
+                elevation = Mathf.Pow(elevation, HeightGrowth);
+                elevation = Mathf.Lerp(0.0f, HeightMultiplier, elevation);
+                
+
+                Color col = new Color(elevation, elevation, elevation);
+
+                newMat.name = col.grayscale.ToString("F");
+                newMat.SetColor("_BaseColor", col);
+
+                HexTiles[i].Transform.GetComponent<MeshRenderer>().sharedMaterial = newMat;
+                HexTiles[i].Transform.position = new Vector3(transform.GetChild(i).position.x, elevation,
+                    transform.GetChild(i).position.z);
+            }
+        }
+    }
     public static Vector3 HexCorners(Vector3 center, float size, int sideIndex, bool isPointyHex = true)
     {
         float angleDeg = 60 * sideIndex + ((isPointyHex == false) ? 0 :  30);
@@ -185,7 +214,6 @@ public class HexGenerator : MonoBehaviour
         return new Vector3(center.x + size * Mathf.Cos(angleRad), 0, center.z + size * Mathf.Sin(angleRad));
     }
    
-
     public static Vector3 PositionAroundCircle(float rad, float radius)
     {
         float x = radius * Mathf.Sin(rad);
@@ -194,70 +222,74 @@ public class HexGenerator : MonoBehaviour
         return new Vector3(x, y, -z);
     }
 
-    //public static bool ContainsPoint(Vector2[] polyPoints, Vector2 p)
+    //private static void SetHexagonTile(GameObject obj, Vector3 pos)
     //{
-    //    var j = polyPoints.Length - 1;
-    //    var inside = false;
-    //    for (int i = 0; i < polyPoints.Length; j = i++)
-    //    {
-    //        var pi = polyPoints[i];
-    //        var pj = polyPoints[j];
-    //        if (((pi.y <= p.y && p.y < pj.y) || (pj.y <= p.y && p.y < pi.y)) &&
-    //            (p.x < (pj.x - pi.x) * (p.y - pi.y) / (pj.y - pi.y) + pi.x))
-    //            inside = !inside;
-    //    }
-    //    return inside;
+    //    obj.transform.localPosition = pos;
     //}
 
-    private static void SetHexagonTile(GameObject obj, Vector3 pos)
+    private void SetHexagonTile(GameObject obj, Vector3 pos, float xIndex, float zIndex)
     {
-        obj.transform.localPosition = pos;
-    }
-
-    private static void SetHexagonTile(GameObject obj, Vector3 pos, float xIndex, float zIndex)
-    {
+        if(!obj) return;
         obj.name = "Hex:" + Mathf.RoundToInt(xIndex).ToString() + "x" + Mathf.RoundToInt(zIndex).ToString();
         obj.transform.localPosition = pos;
-    }
 
-    public void SetTileInfo()
-    {
+        if(!obj.GetComponent<HexTileControler>()) return;
 
-    }
-
-    void GetHeightFromTexture()
-    {
-        if(!HeightMap) return;
-        float HexPixelxSize = HeightMap.width / RectSize.x;
-        float HexPixelySize = HeightMap.height / RectSize.y;
-
-        float xPixelOffSet = HexPixelxSize;
-        float yPixelOffSet = (Mathf.Sqrt(3) * HexPixelxSize);
-        HeighColors = new List<Color>();
-        for (int x = 0; x < RectSize.x; x++)
+        HexTile tile = new HexTile
         {
-            for (int z = 0; z < RectSize.y; z++)
+            Name = obj.name,
+            Transform = obj.transform,
+            Index = new Vector3Int((int) xIndex, 0, (int) zIndex)
+        };
+
+        UV heightUv = new UV
+        {
+            u = ((obj.transform.localPosition.x / (RectSize.x / 2.0f)) + 1) / 2,
+            v = ((obj.transform.localPosition.z / (RectSize.y / 2.0f)) + 1) / 2
+        };
+        tile.HeightUV = heightUv;
+
+        HexTiles.Add(tile);
+        obj.GetComponent<HexTileControler>().SetTile(tile);
+    }
+
+    private float GetHeightFromTexture(int x, int y)
+    {
+        if (!HeightMap) return -1;
+
+        int hexPixelxSize = HeighIndexMap.width / RectSize.x;
+
+        Color col = GetAverageRgbCircle(HeightMap, x, y, hexPixelxSize);
+        SetAverageRgbCircle(HeighIndexMap, x, y, hexPixelxSize, col);
+
+        return col.grayscale;
+    }
+
+    public void SetAverageRgbCircle(Texture2D img, int x, int y, int radius, Color color)
+    {
+        /* Iterate through a bounding box in which the circle lies */
+        for (int i = x - radius; i < x + radius; i++)
+        {
+            for (int j = y - radius; j < y + radius; j++)
             {
-                Vector2 pos = (int)z % 2 == 0 ?
-                    new Vector2(x * xPixelOffSet, z * (yPixelOffSet / 2)) : new Vector2(x * xPixelOffSet + (xPixelOffSet / 2), z * (yPixelOffSet / 2));
+                /* If the pixel is outside the canvas, skip it */
+                if (i < 0 || i >= img.width || j < 0 || j >= img.height)
+                    continue;
+
+                /* If the pixel is outside the circle, skip it */
+                if (Vector2.Distance(new Vector2(x, y), new Vector2(i, j)) > radius)
+                    continue;
 
 
-                var u = pos.x / HeightMap.width;
-                var v = pos.y / HeightMap.height;
+                img.SetPixel(Mathf.RoundToInt(i), Mathf.RoundToInt(j), color);
 
-                Color col = GetAverageRgbCircle(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y), (int)HexPixelxSize);
-                HeighColors.Add(col);
             }
         }
+        /* Apply texture changes */
+        img.Apply();
     }
 
-
-    Color GetAverageRgbCircle(int x, int y, int radius)
-    {
-        return GetAverageRgbCircle(HeightMap, x, y, radius);
-    }
-
-    Color GetAverageRgbCircle(Texture2D img, int x, int y, int radius)
+    public Color GetAverageRgbCircle(Texture2D img, int x, int y, int radius)
     {
         float r = 0;
         float g = 0;
@@ -278,7 +310,7 @@ public class HexGenerator : MonoBehaviour
 
 
                 /* Get the color from the image, add to a running sum */
-                Color c = img.GetPixel(x, y);
+                Color c = img.GetPixel(i, j);
                 /* Sum the squares of components instead */
                 r += c.r * c.r;
                 g += c.g * c.g;
