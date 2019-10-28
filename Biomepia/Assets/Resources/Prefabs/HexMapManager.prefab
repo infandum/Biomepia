@@ -1,0 +1,790 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7443133607474761500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7443133607474761502}
+  - component: {fileID: 6801195876951468143}
+  - component: {fileID: 7443133607474761501}
+  m_Layer: 0
+  m_Name: HexMapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7443133607474761502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443133607474761500}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6801195876951468143
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443133607474761500}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7443133607474761501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443133607474761500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9564004fa5d71194dbfa7a1738945190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hexGameObject: {fileID: 5616619144765955555, guid: 2586c352bf509c84faf8e0c155965b6b,
+    type: 3}
+  RectSize: {x: 10, y: 12}
+  HexRadius: 14
+  HexTiles:
+  - Name: Hex:0x0
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 0}
+    HeightUv:
+      U: 0.025
+      V: 0.104166664
+  - Name: Hex:0x1
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 1}
+    HeightUv:
+      U: 0.075
+      V: 0.17633332
+  - Name: Hex:0x2
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 2}
+    HeightUv:
+      U: 0.025
+      V: 0.2485
+  - Name: Hex:0x3
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 3}
+    HeightUv:
+      U: 0.075
+      V: 0.32066667
+  - Name: Hex:0x4
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 4}
+    HeightUv:
+      U: 0.025
+      V: 0.39283332
+  - Name: Hex:0x5
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 5}
+    HeightUv:
+      U: 0.075
+      V: 0.465
+  - Name: Hex:0x6
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 6}
+    HeightUv:
+      U: 0.025
+      V: 0.53716666
+  - Name: Hex:0x7
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 7}
+    HeightUv:
+      U: 0.075
+      V: 0.60933334
+  - Name: Hex:0x8
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 8}
+    HeightUv:
+      U: 0.025
+      V: 0.6815
+  - Name: Hex:0x9
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 9}
+    HeightUv:
+      U: 0.075
+      V: 0.75366664
+  - Name: Hex:0x10
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 10}
+    HeightUv:
+      U: 0.025
+      V: 0.8258333
+  - Name: Hex:0x11
+    Transform: {fileID: 0}
+    Index: {x: 0, y: 0, z: 11}
+    HeightUv:
+      U: 0.075
+      V: 0.898
+  - Name: Hex:1x0
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 0}
+    HeightUv:
+      U: 0.125
+      V: 0.104166664
+  - Name: Hex:1x1
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 1}
+    HeightUv:
+      U: 0.175
+      V: 0.17633332
+  - Name: Hex:1x2
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 2}
+    HeightUv:
+      U: 0.125
+      V: 0.2485
+  - Name: Hex:1x3
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 3}
+    HeightUv:
+      U: 0.175
+      V: 0.32066667
+  - Name: Hex:1x4
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 4}
+    HeightUv:
+      U: 0.125
+      V: 0.39283332
+  - Name: Hex:1x5
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 5}
+    HeightUv:
+      U: 0.175
+      V: 0.465
+  - Name: Hex:1x6
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 6}
+    HeightUv:
+      U: 0.125
+      V: 0.53716666
+  - Name: Hex:1x7
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 7}
+    HeightUv:
+      U: 0.175
+      V: 0.60933334
+  - Name: Hex:1x8
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 8}
+    HeightUv:
+      U: 0.125
+      V: 0.6815
+  - Name: Hex:1x9
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 9}
+    HeightUv:
+      U: 0.175
+      V: 0.75366664
+  - Name: Hex:1x10
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 10}
+    HeightUv:
+      U: 0.125
+      V: 0.8258333
+  - Name: Hex:1x11
+    Transform: {fileID: 0}
+    Index: {x: 1, y: 0, z: 11}
+    HeightUv:
+      U: 0.175
+      V: 0.898
+  - Name: Hex:2x0
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 0}
+    HeightUv:
+      U: 0.225
+      V: 0.104166664
+  - Name: Hex:2x1
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 1}
+    HeightUv:
+      U: 0.275
+      V: 0.17633332
+  - Name: Hex:2x2
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 2}
+    HeightUv:
+      U: 0.225
+      V: 0.2485
+  - Name: Hex:2x3
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 3}
+    HeightUv:
+      U: 0.275
+      V: 0.32066667
+  - Name: Hex:2x4
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 4}
+    HeightUv:
+      U: 0.225
+      V: 0.39283332
+  - Name: Hex:2x5
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 5}
+    HeightUv:
+      U: 0.275
+      V: 0.465
+  - Name: Hex:2x6
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 6}
+    HeightUv:
+      U: 0.225
+      V: 0.53716666
+  - Name: Hex:2x7
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 7}
+    HeightUv:
+      U: 0.275
+      V: 0.60933334
+  - Name: Hex:2x8
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 8}
+    HeightUv:
+      U: 0.225
+      V: 0.6815
+  - Name: Hex:2x9
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 9}
+    HeightUv:
+      U: 0.275
+      V: 0.75366664
+  - Name: Hex:2x10
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 10}
+    HeightUv:
+      U: 0.225
+      V: 0.8258333
+  - Name: Hex:2x11
+    Transform: {fileID: 0}
+    Index: {x: 2, y: 0, z: 11}
+    HeightUv:
+      U: 0.275
+      V: 0.898
+  - Name: Hex:3x0
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 0}
+    HeightUv:
+      U: 0.325
+      V: 0.104166664
+  - Name: Hex:3x1
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 1}
+    HeightUv:
+      U: 0.375
+      V: 0.17633332
+  - Name: Hex:3x2
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 2}
+    HeightUv:
+      U: 0.325
+      V: 0.2485
+  - Name: Hex:3x3
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 3}
+    HeightUv:
+      U: 0.375
+      V: 0.32066667
+  - Name: Hex:3x4
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 4}
+    HeightUv:
+      U: 0.325
+      V: 0.39283332
+  - Name: Hex:3x5
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 5}
+    HeightUv:
+      U: 0.375
+      V: 0.465
+  - Name: Hex:3x6
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 6}
+    HeightUv:
+      U: 0.325
+      V: 0.53716666
+  - Name: Hex:3x7
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 7}
+    HeightUv:
+      U: 0.375
+      V: 0.60933334
+  - Name: Hex:3x8
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 8}
+    HeightUv:
+      U: 0.325
+      V: 0.6815
+  - Name: Hex:3x9
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 9}
+    HeightUv:
+      U: 0.375
+      V: 0.75366664
+  - Name: Hex:3x10
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 10}
+    HeightUv:
+      U: 0.325
+      V: 0.8258333
+  - Name: Hex:3x11
+    Transform: {fileID: 0}
+    Index: {x: 3, y: 0, z: 11}
+    HeightUv:
+      U: 0.375
+      V: 0.898
+  - Name: Hex:4x0
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 0}
+    HeightUv:
+      U: 0.425
+      V: 0.104166664
+  - Name: Hex:4x1
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 1}
+    HeightUv:
+      U: 0.475
+      V: 0.17633332
+  - Name: Hex:4x2
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 2}
+    HeightUv:
+      U: 0.425
+      V: 0.2485
+  - Name: Hex:4x3
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 3}
+    HeightUv:
+      U: 0.475
+      V: 0.32066667
+  - Name: Hex:4x4
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 4}
+    HeightUv:
+      U: 0.425
+      V: 0.39283332
+  - Name: Hex:4x5
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 5}
+    HeightUv:
+      U: 0.475
+      V: 0.465
+  - Name: Hex:4x6
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 6}
+    HeightUv:
+      U: 0.425
+      V: 0.53716666
+  - Name: Hex:4x7
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 7}
+    HeightUv:
+      U: 0.475
+      V: 0.60933334
+  - Name: Hex:4x8
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 8}
+    HeightUv:
+      U: 0.425
+      V: 0.6815
+  - Name: Hex:4x9
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 9}
+    HeightUv:
+      U: 0.475
+      V: 0.75366664
+  - Name: Hex:4x10
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 10}
+    HeightUv:
+      U: 0.425
+      V: 0.8258333
+  - Name: Hex:4x11
+    Transform: {fileID: 0}
+    Index: {x: 4, y: 0, z: 11}
+    HeightUv:
+      U: 0.475
+      V: 0.898
+  - Name: Hex:5x0
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 0}
+    HeightUv:
+      U: 0.525
+      V: 0.104166664
+  - Name: Hex:5x1
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 1}
+    HeightUv:
+      U: 0.575
+      V: 0.17633332
+  - Name: Hex:5x2
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 2}
+    HeightUv:
+      U: 0.525
+      V: 0.2485
+  - Name: Hex:5x3
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 3}
+    HeightUv:
+      U: 0.575
+      V: 0.32066667
+  - Name: Hex:5x4
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 4}
+    HeightUv:
+      U: 0.525
+      V: 0.39283332
+  - Name: Hex:5x5
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 5}
+    HeightUv:
+      U: 0.575
+      V: 0.465
+  - Name: Hex:5x6
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 6}
+    HeightUv:
+      U: 0.525
+      V: 0.53716666
+  - Name: Hex:5x7
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 7}
+    HeightUv:
+      U: 0.575
+      V: 0.60933334
+  - Name: Hex:5x8
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 8}
+    HeightUv:
+      U: 0.525
+      V: 0.6815
+  - Name: Hex:5x9
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 9}
+    HeightUv:
+      U: 0.575
+      V: 0.75366664
+  - Name: Hex:5x10
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 10}
+    HeightUv:
+      U: 0.525
+      V: 0.8258333
+  - Name: Hex:5x11
+    Transform: {fileID: 0}
+    Index: {x: 5, y: 0, z: 11}
+    HeightUv:
+      U: 0.575
+      V: 0.898
+  - Name: Hex:6x0
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 0}
+    HeightUv:
+      U: 0.625
+      V: 0.104166664
+  - Name: Hex:6x1
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 1}
+    HeightUv:
+      U: 0.675
+      V: 0.17633332
+  - Name: Hex:6x2
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 2}
+    HeightUv:
+      U: 0.625
+      V: 0.2485
+  - Name: Hex:6x3
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 3}
+    HeightUv:
+      U: 0.675
+      V: 0.32066667
+  - Name: Hex:6x4
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 4}
+    HeightUv:
+      U: 0.625
+      V: 0.39283332
+  - Name: Hex:6x5
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 5}
+    HeightUv:
+      U: 0.675
+      V: 0.465
+  - Name: Hex:6x6
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 6}
+    HeightUv:
+      U: 0.625
+      V: 0.53716666
+  - Name: Hex:6x7
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 7}
+    HeightUv:
+      U: 0.675
+      V: 0.60933334
+  - Name: Hex:6x8
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 8}
+    HeightUv:
+      U: 0.625
+      V: 0.6815
+  - Name: Hex:6x9
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 9}
+    HeightUv:
+      U: 0.675
+      V: 0.75366664
+  - Name: Hex:6x10
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 10}
+    HeightUv:
+      U: 0.625
+      V: 0.8258333
+  - Name: Hex:6x11
+    Transform: {fileID: 0}
+    Index: {x: 6, y: 0, z: 11}
+    HeightUv:
+      U: 0.675
+      V: 0.898
+  - Name: Hex:7x0
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 0}
+    HeightUv:
+      U: 0.725
+      V: 0.104166664
+  - Name: Hex:7x1
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 1}
+    HeightUv:
+      U: 0.775
+      V: 0.17633332
+  - Name: Hex:7x2
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 2}
+    HeightUv:
+      U: 0.725
+      V: 0.2485
+  - Name: Hex:7x3
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 3}
+    HeightUv:
+      U: 0.775
+      V: 0.32066667
+  - Name: Hex:7x4
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 4}
+    HeightUv:
+      U: 0.725
+      V: 0.39283332
+  - Name: Hex:7x5
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 5}
+    HeightUv:
+      U: 0.775
+      V: 0.465
+  - Name: Hex:7x6
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 6}
+    HeightUv:
+      U: 0.725
+      V: 0.53716666
+  - Name: Hex:7x7
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 7}
+    HeightUv:
+      U: 0.775
+      V: 0.60933334
+  - Name: Hex:7x8
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 8}
+    HeightUv:
+      U: 0.725
+      V: 0.6815
+  - Name: Hex:7x9
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 9}
+    HeightUv:
+      U: 0.775
+      V: 0.75366664
+  - Name: Hex:7x10
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 10}
+    HeightUv:
+      U: 0.725
+      V: 0.8258333
+  - Name: Hex:7x11
+    Transform: {fileID: 0}
+    Index: {x: 7, y: 0, z: 11}
+    HeightUv:
+      U: 0.775
+      V: 0.898
+  - Name: Hex:8x0
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 0}
+    HeightUv:
+      U: 0.825
+      V: 0.104166664
+  - Name: Hex:8x1
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 1}
+    HeightUv:
+      U: 0.875
+      V: 0.17633332
+  - Name: Hex:8x2
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 2}
+    HeightUv:
+      U: 0.825
+      V: 0.2485
+  - Name: Hex:8x3
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 3}
+    HeightUv:
+      U: 0.875
+      V: 0.32066667
+  - Name: Hex:8x4
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 4}
+    HeightUv:
+      U: 0.825
+      V: 0.39283332
+  - Name: Hex:8x5
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 5}
+    HeightUv:
+      U: 0.875
+      V: 0.465
+  - Name: Hex:8x6
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 6}
+    HeightUv:
+      U: 0.825
+      V: 0.53716666
+  - Name: Hex:8x7
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 7}
+    HeightUv:
+      U: 0.875
+      V: 0.60933334
+  - Name: Hex:8x8
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 8}
+    HeightUv:
+      U: 0.825
+      V: 0.6815
+  - Name: Hex:8x9
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 9}
+    HeightUv:
+      U: 0.875
+      V: 0.75366664
+  - Name: Hex:8x10
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 10}
+    HeightUv:
+      U: 0.825
+      V: 0.8258333
+  - Name: Hex:8x11
+    Transform: {fileID: 0}
+    Index: {x: 8, y: 0, z: 11}
+    HeightUv:
+      U: 0.875
+      V: 0.898
+  - Name: Hex:9x0
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 0}
+    HeightUv:
+      U: 0.925
+      V: 0.104166664
+  - Name: Hex:9x1
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 1}
+    HeightUv:
+      U: 0.975
+      V: 0.17633332
+  - Name: Hex:9x2
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 2}
+    HeightUv:
+      U: 0.925
+      V: 0.2485
+  - Name: Hex:9x3
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 3}
+    HeightUv:
+      U: 0.975
+      V: 0.32066667
+  - Name: Hex:9x4
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 4}
+    HeightUv:
+      U: 0.925
+      V: 0.39283332
+  - Name: Hex:9x5
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 5}
+    HeightUv:
+      U: 0.975
+      V: 0.465
+  - Name: Hex:9x6
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 6}
+    HeightUv:
+      U: 0.925
+      V: 0.53716666
+  - Name: Hex:9x7
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 7}
+    HeightUv:
+      U: 0.975
+      V: 0.60933334
+  - Name: Hex:9x8
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 8}
+    HeightUv:
+      U: 0.925
+      V: 0.6815
+  - Name: Hex:9x9
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 9}
+    HeightUv:
+      U: 0.975
+      V: 0.75366664
+  - Name: Hex:9x10
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 10}
+    HeightUv:
+      U: 0.925
+      V: 0.8258333
+  - Name: Hex:9x11
+    Transform: {fileID: 0}
+    Index: {x: 9, y: 0, z: 11}
+    HeightUv:
+      U: 0.975
+      V: 0.898
+  HeightMap: {fileID: 2800000, guid: 0b99204a44a17a94c95c1b2845909c28, type: 3}
+  _heightIndexMap: {fileID: 0}
+  HeightMultiplier: 1
+  HeightGrowth: 1
+  IsGenerateRect: 1
+  IsOnlyInsideCollider: 0
