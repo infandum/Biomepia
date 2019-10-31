@@ -5,6 +5,13 @@
 #include "ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
 
+
+#include "Engine/StaticMesh.h"
+#include "Materials/Material.h" 	
+
+#include "Materials/MaterialInstanceDynamic.h"
+
+
 // Sets default values
 AHexagonTile::AHexagonTile()
 {
@@ -12,7 +19,7 @@ AHexagonTile::AHexagonTile()
 	PrimaryActorTick.bCanEverTick = true;
 
 	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SceneComp"));
-	//SceneComponent->Mobility = EComponentMobility::Static;
+	SceneComponent->Mobility = EComponentMobility::Movable;
 	RootComponent = SceneComponent;
 
 	if(StaticMesh == nullptr)
@@ -31,6 +38,8 @@ AHexagonTile::AHexagonTile()
 
 		MeshComponent->SetupAttachment(RootComponent);
 		MeshComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+
+
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("No Static Mesh!!"));
@@ -63,6 +72,7 @@ AHexagonTile::AHexagonTile(FVector index, FVector2D uv)
 
 		MeshComponent->SetupAttachment(RootComponent);
 		MeshComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("No Static Mesh!!"));
@@ -94,10 +104,21 @@ void AHexagonTile::SetElevation(float elevation)
 void AHexagonTile::SetTileData(FVector index, FVector2D uv)
 {
 	const FString name = "Hex:" + FString::SanitizeFloat(index.X) + "," + FString::SanitizeFloat(index.Y);
+	Rename(*name);
 	//SetActorLabel(name);
-	Rename(ToCStr(name));
 	LocationIndex = index;
 	HeightUV = uv;
+}
+
+void AHexagonTile::SetMaterial(FLinearColor color, UMaterialInterface* baseMaterial)
+{
+	if(baseMaterial == nullptr)
+		DynamicMaterial = UMaterialInstanceDynamic::Create(MeshComponent->GetMaterial(0), this);
+	else
+		DynamicMaterial = UMaterialInstanceDynamic::Create(baseMaterial, this);
+
+	DynamicMaterial->SetVectorParameterValue("Color", color);
+	MeshComponent->SetMaterial(0, DynamicMaterial);
 }
 
 void AHexagonTile::OnConstruction(const FTransform & Transform)

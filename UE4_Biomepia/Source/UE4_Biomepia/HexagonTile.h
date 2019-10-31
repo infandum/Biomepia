@@ -23,6 +23,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Mesh)
 	UStaticMeshComponent* MeshComponent {};
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Mesh)
+	UMaterialInstanceDynamic* DynamicMaterial{};
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Translation)
 	USceneComponent* SceneComponent{};
 
@@ -32,7 +35,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Data)
 	FVector2D HeightUV;
 
-
+	
 
 
 protected:
@@ -45,6 +48,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "HexagonTile")
 	void SetTileData(FVector index, FVector2D uv);
+
+	UFUNCTION(BlueprintCallable, Category = "HexagonTile")
+	void SetMaterial(FLinearColor color, UMaterialInterface* material = nullptr);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
