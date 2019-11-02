@@ -33,3 +33,9 @@ float UTexture2DHelper::ColorToGreyScale(FColor color)
 {
 	return float((color.R + color.G + color.B) / 3.0f) / 255.0f;
 }
+
+float UTexture2DHelper::LinearColorToGreyScale(FLinearColor linearColor)
+{
+	return float((linearColor.R + linearColor.G + linearColor.B) / 3.0f);
+}
+

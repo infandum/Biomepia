@@ -21,4 +21,7 @@ class UE4_BIOMEPIA_API UTexture2DHelper : public UBlueprintFunctionLibrary
 
 		UFUNCTION(BlueprintPure, Category = "Helper")
 		static float ColorToGreyScale(FColor color);
+
+		UFUNCTION(BlueprintPure, Category = "Helper")
+		static float LinearColorToGreyScale(FLinearColor linearColor);
 };

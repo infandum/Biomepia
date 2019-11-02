@@ -11,7 +11,8 @@ class UE4_BIOMEPIA_API AHexagonTile : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
+public:
+	void HexagonTileInit();
 	// Sets default values for this actor's properties
 	AHexagonTile();
 	AHexagonTile(FVector index, FVector2D uv);
@@ -35,7 +36,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Data)
 	FVector2D HeightUV;
 
-	
+	//UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Data)
+	// HeightUV;
 
 
 protected:
@@ -44,13 +46,26 @@ protected:
 	void OnConstruction(const FTransform & Transform) override;
 
 	UFUNCTION(BlueprintCallable, Category = "HexagonTile")
+	void SetHeight(const float height) const;
+
+	UFUNCTION(BlueprintCallable, Category = "HexagonTile")
+	float GetHeight() const { return RootComponent->GetRelativeTransform().GetLocation().Z; }
+
+	UFUNCTION(BlueprintCallable, Category = "HexagonTile")
 	void SetElevation(float elevation);
+
+	UFUNCTION(BlueprintCallable, Category = "HexagonTile")
+	float GetElevation() const { return LocationIndex.Z; }
+
+	UFUNCTION(BlueprintCallable, Category = "HexagonTile")
+	FVector2D GetHeightUV() const { return HeightUV; }
 
 	UFUNCTION(BlueprintCallable, Category = "HexagonTile")
 	void SetTileData(FVector index, FVector2D uv);
 
 	UFUNCTION(BlueprintCallable, Category = "HexagonTile")
-	void SetMaterial(FLinearColor color, UMaterialInterface* material = nullptr);
+	void SetDynamicMaterial(FLinearColor linearColor, UMaterialInterface* baseMaterial = nullptr);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
