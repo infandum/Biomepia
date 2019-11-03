@@ -7,7 +7,7 @@
 #include "SelectionComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class UE4_BIOMEPIA_API USelectionComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -17,13 +17,13 @@ public:
 	USelectionComponent();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Raytrace)
-		FVector StartOffset = FVector(0.0f, 0.0f, 0.0f);
+		FVector StartOffset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Raytrace)
-		FVector DirectionAxis = FVector(0.0f, 0.0f, 1.0f);
+		FVector DirectionAxis;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Raytrace)
-		float RayDistance = 1000.0f;
+		float RayDistance;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Raytrace)
 		TArray<UClass*> SelectableClasses;
@@ -32,7 +32,13 @@ public:
 		FHitResult HoverTarget;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Targets)
+		bool IsHovering;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Targets)
 		FHitResult SelectedTarget;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Targets)
+		bool IsSelected;
 
 protected:
 	// Called when the game starts
@@ -42,5 +48,6 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	UFUNCTION(BlueprintCallable, Category = "Selection")
+		void SelectTarget();
 };
