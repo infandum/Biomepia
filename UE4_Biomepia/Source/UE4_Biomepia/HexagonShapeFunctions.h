@@ -11,9 +11,10 @@ struct FHexagonShape
 {
 	GENERATED_BODY()
 
-		//Constructor
-		FHexagonShape();
-	explicit FHexagonShape(FVector position, bool isPointyHex = true);
+	//Constructor
+	FHexagonShape();
+	void InitializeCorners(FVector position, float radius, float height, bool isPointyHex);
+	//explicit FHexagonShape(FVector position, bool isPointyHex = true);
 	explicit FHexagonShape(FVector position, float radius = 100.0f, float height = 100.0f, bool isPointyHex = true);
 
 	FVector GetCenter() const
@@ -21,23 +22,47 @@ struct FHexagonShape
 		return Center;
 	}
 
-	TArray<FVector> GetCorners()const
+	float GetRadius() const
 	{
-		return Corners;
+		return Radius;
 	}
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float GetHeight() const
+	{
+		return Height;
+	}
+
+	bool GetIsPointyHexagon() const 
+	{
+		return IsPointyHexagon;
+	}
+
+	FVector GetCorner(int cornerIndex = 0);
+
+	TArray<FVector> GetCorners();
+
+	TArray<FVector> GetTrapezoidsCenters() const;
+
+	TArray<FVector> GetRhombusCenters() const;
+
+	TArray<FVector> GetTrianglesCenters() const;
+
+
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = translation)
 		FVector Center;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = translation)
 		TArray<FVector> Corners;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = translation)
 		float Radius;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		bool IsPointyHexagon;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = shape)
+		float Height;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = shape)
+		bool IsPointyHexagon;
 };
 /**
  * 
@@ -48,12 +73,22 @@ class UE4_BIOMEPIA_API UHexagonShapeFunctions : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FHexagonShape HexagonShape;
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
-		FVector GetCenters(UPARAM(ref) FHexagonShape& shape) const;
+		static FVector GetCenter(const FHexagonShape& hexagon);
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
-		TArray<FVector> GetCorners(UPARAM(ref) FHexagonShape& shape) const;
+		static TArray<FVector> GetCorners(const FHexagonShape& hexagon);
+
+	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
+		static FVector GetCorner(const FHexagonShape& hexagon, int cornerIndex = 0);
+
+	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
+		static TArray<FVector> GetTrapezoidsCenters(const FHexagonShape& hexagon, bool isCenteriod = true);
+
+	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
+		static TArray<FVector> GetRhombusCenters(const FHexagonShape& hexagon);
+
+	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
+		static TArray<FVector> GetTrianglesCenters(const FHexagonShape& hexagon);
 };
