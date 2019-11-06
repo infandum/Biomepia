@@ -16,8 +16,17 @@ class UE4_BIOMEPIA_API UHexagonMath : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintPure, Category = "Hexagon Math")
+	UFUNCTION(BlueprintPure, Category = "Polygon Math")
 		static FVector2D GetPositionOnCircle(float rad, float radius, FVector2D center = FVector2D(0, 0));
+
+	UFUNCTION(BlueprintPure, Category = "Polygon Math")
+		static FVector2D GetTriangleCenteriod(FVector2D v0, FVector2D v1, FVector2D v2);
+
+	UFUNCTION(BlueprintPure, Category = "Polygon Math")
+		static FVector2D GetAverageCenteriod2D(const TArray<FVector2D>& centriods, const unsigned int size);
+
+	UFUNCTION(BlueprintPure, Category = "Polygon Math")
+		static FVector GetAverageCenteriod(const TArray<FVector>& centriods, const unsigned int size);
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Math")
 		static FVector2D GetHexagonCorner(float radius, int sideIndex, FVector2D center = FVector2D(0, 0), bool isPointyHex = true);
@@ -38,5 +47,7 @@ public:
 		static TArray<FVector> GetHexagonRhombusCenters(float radius, float height = 0, FVector position = FVector(0, 0, 0), bool isPointyHex = true);
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Math")
-		static TArray<FVector> GetHexagonTrianglesCenters(float radius, float height = 0, FVector position = FVector(0, 0, 0), bool isPointyHex = true);
+		static TArray<FVector> GetHexagonTrianglesCenters(float radius, float height = 0, FVector position = FVector(0, 0, 0), bool isPointyHex = true, bool isCenteriod = true);
+
+	
 };
