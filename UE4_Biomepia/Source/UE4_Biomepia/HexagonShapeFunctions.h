@@ -87,7 +87,7 @@ public:
 		static TArray<FVector> GetTrapezoidsCenters(const FHexagonShape& hexagon, bool isCenteriod = true);
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
-		static TArray<FVector> GetRhombusCenters(const FHexagonShape& hexagon, bool isCenteriod = true);
+		static TArray<FVector> GetRhombusCenters(const FHexagonShape& hexagon);
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
 		static TArray<FVector> GetTrianglesCenters(const FHexagonShape& hexagon, bool isCenteriod = true);

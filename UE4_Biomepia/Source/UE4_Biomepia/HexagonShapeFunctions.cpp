@@ -124,8 +124,7 @@ FVector UHexagonShapeFunctions::GetCenter(const FHexagonShape& hexagon)
 TArray<FVector> UHexagonShapeFunctions::GetCorners(const FHexagonShape& hexagon)
 {
 	TArray<FVector> Corners = TArray<FVector>();
-	FVector2D corner = UHexagonMath::GetHexagonCorner(hexagon.GetRadius(), 0, { hexagon.GetCenter().X, hexagon.GetCenter().Y }, hexagon.GetIsPointyHexagon());
-	Corners.Add({ corner.X, corner.Y, hexagon.GetCenter().Z });
+	FVector2D corner = FVector2D();
 
 	corner = UHexagonMath::GetHexagonCorner(hexagon.GetRadius(), 0, { hexagon.GetCenter().X, hexagon.GetCenter().Y }, hexagon.GetIsPointyHexagon());
 	Corners.Add({ corner.X, corner.Y, hexagon.GetCenter().Z });
@@ -159,9 +158,9 @@ TArray<FVector> UHexagonShapeFunctions::GetTrapezoidsCenters(const FHexagonShape
 	return UHexagonMath::GetHexagonTrapezoidsCenters(hexagon.GetRadius(), hexagon.GetHeight(),hexagon.GetCenter(), hexagon.GetIsPointyHexagon(), isCenteriod);
 }
 
-TArray<FVector> UHexagonShapeFunctions::GetRhombusCenters(const FHexagonShape& hexagon, bool isCenteriod)
+TArray<FVector> UHexagonShapeFunctions::GetRhombusCenters(const FHexagonShape& hexagon)
 {
-	return UHexagonMath::GetHexagonRhombusCenters(hexagon.GetRadius(), hexagon.GetHeight(), hexagon.GetCenter(), hexagon.GetIsPointyHexagon(), isCenteriod);
+	return UHexagonMath::GetHexagonRhombusCenters(hexagon.GetRadius(), hexagon.GetHeight(), hexagon.GetCenter(), hexagon.GetIsPointyHexagon());
 }
 
 TArray<FVector> UHexagonShapeFunctions::GetTrianglesCenters(const FHexagonShape& hexagon, bool isCenteriod)
