@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "HexagonShapeFunctions.h"
+
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "HexagonMath.generated.h"
@@ -99,9 +99,6 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Geometry")
 		static float GetHexagonRad(int sideIndex, bool isPointyHex = true);
-
-	UFUNCTION(BlueprintPure, Category = "Hexagon Geometry")
-		static FHexagonShape GetHexagonShape(FVector position = FVector(0, 0, 0), float radius = 0.0f, float height = 0.0f, bool isPointyHex = true);
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Geometry")
 		static TArray<FVector> GetHexagonTrapezoidsCenters(float radius, float height = 0, FVector position = FVector(0, 0, 0), bool isPointyHex = true, bool isCenteriod = true);

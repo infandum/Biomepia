@@ -48,5 +48,19 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Selection")
-		void SelectTarget();
+		FHitResult SelectTarget();
+
+	UFUNCTION(BlueprintCallable, Category = "Selection")
+		FHitResult GetSelectTarget();
+
+	UFUNCTION(BlueprintCallable, Category = "Selection")
+		FHitResult GetHoverTarget();
+
+	//UFUNCTION(BlueprintCallable, Category = "Selection")
+	//	void GetSelectActor();
+
+	//UFUNCTION(BlueprintCallable, Category = "Selection")
+	//	void GetSelectActor();
+
+
 };

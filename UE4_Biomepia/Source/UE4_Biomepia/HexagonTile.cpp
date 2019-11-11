@@ -2,6 +2,8 @@
 
 
 #include "HexagonTile.h"
+#include "HexagonMath.h"
+#include "HexagonShapeFunctions.h"
 #include "ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -9,13 +11,32 @@
 #include "Materials/MaterialInstanceDynamic.h"
 
 
+// Sets default values
+AHexagonTile::AHexagonTile()
+{
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
+	HexagonTileInit();
+}
+
+AHexagonTile::AHexagonTile(FHexCubeCoordinates coord, FVector2D uv, FHexagonShape HexagonShape)
+{
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+	
+	//SetTileData(coord, elevation, uv, HexagonShape);
+
+	HexagonTileInit();
+}
+
 void AHexagonTile::HexagonTileInit()
 {
 	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SceneComp"));
 	SceneComponent->Mobility = EComponentMobility::Movable;
 	RootComponent = SceneComponent;
 
-	if(StaticMesh == nullptr)
+	if (StaticMesh == nullptr)
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("No default mesh was set, setting default 1M_Hexagon"));
 		static ConstructorHelpers::FObjectFinder<UStaticMesh> StaticMeshObj(TEXT("/Game/Geometry/Meshes/1M_Hexagon"));
@@ -38,24 +59,6 @@ void AHexagonTile::HexagonTileInit()
 	//	UE_LOG(LogTemp, Warning, TEXT("No Static Mesh!!"));
 }
 
-// Sets default values
-AHexagonTile::AHexagonTile()
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
-	HexagonTileInit();
-}
-
-AHexagonTile::AHexagonTile(FVector index, FVector2D uv)
-{
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-	
-	SetTileData(index, uv);
-
-	HexagonTileInit();
-}
 
 // Called when the game starts or when spawned
 void AHexagonTile::BeginPlay()
@@ -76,21 +79,18 @@ void AHexagonTile::OnConstruction(const FTransform & Transform)
 }
 
 
-void AHexagonTile::SetTileData(FVector index, FVector2D uv)
-{
-	const FString name = "Hex:" + FString::SanitizeFloat(index.X) + "," + FString::SanitizeFloat(index.Y);
-	//GetOwner()->Rename(*name);
-	//GetOwner()->SetActorLabel(*name);
-	//Rename(*name);
-	//SetActorLabel(*name);
-	LocationIndex = index;
-	HeightUV = uv;
-}
+//void AHexagonTile::SetTileData(FHexCubeCoordinates coord, FVector2D uv, FHexagonShape hexagonShape)
+//{
+//	const FString name = "Hex:" + FString::FromInt(coord.Q) + "," + FString::FromInt(coord.R) + "," + FString::FromInt(coord.S);
+//	//GetOwner()->Rename(*name);
+//	//GetOwner()->SetActorLabel(*name);
+//	//Rename(*name);
+//	//SetActorLabel(*name);
+//	Coordinates = coord;
+//	HeightUV = uv;
+//	HexagonShape = hexagonShape;
+//}
 
-void AHexagonTile::SetElevation(float elevation)
-{
-	SetTileData(FVector(LocationIndex.X, LocationIndex.Y, elevation), HeightUV);
-}
 
 void AHexagonTile::SetHeight(const float height) const
 {
@@ -99,6 +99,17 @@ void AHexagonTile::SetHeight(const float height) const
 	RootComponent->SetRelativeLocation(currentPos);
 }
 
+void AHexagonTile::SetElevation(float value)
+{
+	HeightElevation = value;
+}
+
+void AHexagonTile::SetTileData(FHexCubeCoordinates coord, FVector2D uv, FHexagonShape hexShape)
+{
+	Coordinates = coord;
+	HeightUV = uv;
+	HexagonShape = hexShape;
+}
 
 void AHexagonTile::SetDynamicMaterial(FLinearColor linearColor, UMaterialInterface* baseMaterial)
 {

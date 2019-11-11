@@ -15,13 +15,13 @@ FHexagonShape::FHexagonShape()
 }
 
 FHexagonShape::FHexagonShape(FVector position, float radius, float height, bool isPointyHex) 
-: Center(position)
+: Center(position.X, position.Y, height)
 , Corners(TArray<FVector>())
 , Radius(radius)
 , Height(height)
 , IsPointyHexagon(isPointyHex)
 {
-	InitializeCorners(position, radius, height, isPointyHex);
+	InitializeCorners({ position.X, position.Y, height }, radius, height, isPointyHex);
 }
 
 FVector FHexagonShape::GetCorner(int cornerIndex)
@@ -55,66 +55,37 @@ TArray<FVector> FHexagonShape::GetTrianglesCenters() const
 	return UHexagonMath::GetHexagonRhombusCenters(Radius, Height, Center, IsPointyHexagon);
 }
 
-//TArray<FVector> FHexagonShape::GetCorners() 
-//{
-//
-//	Corners = TArray<FVector>();
-//
-//	FVector2D corner = UHexagonMath::GetHexagonCorner(Radius, 0, { Center.X, Center.Y }, IsPointyHexagon);
-//	Corners.Add({ corner.X, corner.Y, Center.Z });
-//
-//	corner = UHexagonMath::GetHexagonCorner(Radius, 0, { Center.X, Center.Y }, IsPointyHexagon);
-//	Corners.Add({ corner.X, corner.Y, Center.Z });
-//
-//	corner = UHexagonMath::GetHexagonCorner(Radius, 1, { Center.X, Center.Y }, IsPointyHexagon);
-//	Corners.Add({ corner.X, corner.Y, Center.Z });
-//
-//	corner = UHexagonMath::GetHexagonCorner(Radius, 2, { Center.X, Center.Y }, IsPointyHexagon);
-//	Corners.Add({ corner.X, corner.Y, Center.Z });
-//
-//	corner = UHexagonMath::GetHexagonCorner(Radius, 3, { Center.X, Center.Y }, IsPointyHexagon);
-//	Corners.Add({ corner.X, corner.Y, Center.Z });
-//
-//	corner = UHexagonMath::GetHexagonCorner(Radius, 4, { Center.X, Center.Y }, IsPointyHexagon);
-//	Corners.Add({ corner.X, corner.Y, Center.Z });
-//
-//	corner = UHexagonMath::GetHexagonCorner(Radius, 5, { Center.X, Center.Y }, IsPointyHexagon);
-//	Corners.Add({ corner.X, corner.Y, Center.Z });
-//
-//	return Corners;
-//}
-
 void FHexagonShape::InitializeCorners(FVector position, float radius, float height, bool isPointyHex)
 {
 	Corners = TArray<FVector>();
 
 	FVector2D corner = UHexagonMath::GetHexagonCorner(radius, 0, { Center.X, Center.Y }, isPointyHex);
-	Corners.Add({ corner.X, corner.Y, Center.Z });
-
-	corner = UHexagonMath::GetHexagonCorner(radius, 0, { Center.X, Center.Y }, isPointyHex);
-	Corners.Add({ corner.X, corner.Y, Center.Z });
+	Corners.Add({ corner.X, corner.Y, Height });
 
 	corner = UHexagonMath::GetHexagonCorner(radius, 1, { Center.X, Center.Y }, isPointyHex);
-	Corners.Add({ corner.X, corner.Y, Center.Z });
+	Corners.Add({ corner.X, corner.Y, Height });
 
 	corner = UHexagonMath::GetHexagonCorner(radius, 2, { Center.X, Center.Y }, isPointyHex);
-	Corners.Add({ corner.X, corner.Y, Center.Z });
+	Corners.Add({ corner.X, corner.Y, Height });
 
 	corner = UHexagonMath::GetHexagonCorner(radius, 3, { Center.X, Center.Y }, isPointyHex);
-	Corners.Add({ corner.X, corner.Y, Center.Z });
+	Corners.Add({ corner.X, corner.Y, Height });
 
 	corner = UHexagonMath::GetHexagonCorner(radius, 4, { Center.X, Center.Y }, isPointyHex);
-	Corners.Add({ corner.X, corner.Y, Center.Z });
+	Corners.Add({ corner.X, corner.Y, Height });
 
 	corner = UHexagonMath::GetHexagonCorner(radius, 5, { Center.X, Center.Y }, isPointyHex);
-	Corners.Add({ corner.X, corner.Y, Center.Z });
+	Corners.Add({ corner.X, corner.Y, Height });
 }
 
 
-//FVector UHexagonShapeFunctions::GetCenters(UPARAM(ref) FHexagonShape& hexagon)
-//{
-//	return hexagon.GetCenter();
-//}
+
+
+
+FHexagonShape UHexagonShapeFunctions::GetHexagonShape(FVector position, float radius, float height, bool isPointyHex)
+{
+	return FHexagonShape(position, radius, height, isPointyHex);
+}
 
 FVector UHexagonShapeFunctions::GetCenter(const FHexagonShape& hexagon)
 {
@@ -127,24 +98,39 @@ TArray<FVector> UHexagonShapeFunctions::GetCorners(const FHexagonShape& hexagon)
 	FVector2D corner = FVector2D();
 
 	corner = UHexagonMath::GetHexagonCorner(hexagon.GetRadius(), 0, { hexagon.GetCenter().X, hexagon.GetCenter().Y }, hexagon.GetIsPointyHexagon());
-	Corners.Add({ corner.X, corner.Y, hexagon.GetCenter().Z });
+	Corners.Add({ corner.X, corner.Y, hexagon.GetHeight() });
 
 	corner = UHexagonMath::GetHexagonCorner(hexagon.GetRadius(), 1, { hexagon.GetCenter().X, hexagon.GetCenter().Y }, hexagon.GetIsPointyHexagon());
-	Corners.Add({ corner.X, corner.Y, hexagon.GetCenter().Z });
+	Corners.Add({ corner.X, corner.Y, hexagon.GetHeight() });
 
 	corner = UHexagonMath::GetHexagonCorner(hexagon.GetRadius(), 2, { hexagon.GetCenter().X, hexagon.GetCenter().Y }, hexagon.GetIsPointyHexagon());
-	Corners.Add({ corner.X, corner.Y, hexagon.GetCenter().Z });
+	Corners.Add({ corner.X, corner.Y, hexagon.GetHeight() });
 
 	corner = UHexagonMath::GetHexagonCorner(hexagon.GetRadius(), 3, { hexagon.GetCenter().X, hexagon.GetCenter().Y }, hexagon.GetIsPointyHexagon());
-	Corners.Add({ corner.X, corner.Y, hexagon.GetCenter().Z });
+	Corners.Add({ corner.X, corner.Y, hexagon.GetHeight() });
 
 	corner = UHexagonMath::GetHexagonCorner(hexagon.GetRadius(), 4, { hexagon.GetCenter().X, hexagon.GetCenter().Y }, hexagon.GetIsPointyHexagon());
-	Corners.Add({ corner.X, corner.Y, hexagon.GetCenter().Z });
+	Corners.Add({ corner.X, corner.Y, hexagon.GetHeight() });
 
 	corner = UHexagonMath::GetHexagonCorner(hexagon.GetRadius(), 5, { hexagon.GetCenter().X, hexagon.GetCenter().Y }, hexagon.GetIsPointyHexagon());
-	Corners.Add({ corner.X, corner.Y, hexagon.GetCenter().Z });
+	Corners.Add({ corner.X, corner.Y, hexagon.GetHeight() });
 
 	return Corners;
+}
+
+float UHexagonShapeFunctions::GetRadius(const FHexagonShape & hexagon)
+{
+	return hexagon.GetRadius();
+}
+
+float UHexagonShapeFunctions::GetHeight(const FHexagonShape & hexagon)
+{
+	return hexagon.GetHeight();
+}
+
+bool UHexagonShapeFunctions::GetIsPointyHexagon(const FHexagonShape & hexagon)
+{
+	return hexagon.GetIsPointyHexagon();
 }
 
 FVector UHexagonShapeFunctions::GetCorner(const FHexagonShape & hexagon, int cornerIndex)

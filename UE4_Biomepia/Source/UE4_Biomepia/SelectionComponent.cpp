@@ -34,13 +34,25 @@ void USelectionComponent::BeginPlay()
 	
 }
 
-void USelectionComponent::SelectTarget()
+FHitResult USelectionComponent::SelectTarget()
 {
 	SelectedTarget = HoverTarget;
 	IsSelected = true;
 	if(SelectedTarget.GetActor() != nullptr)
 		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("You are Selecting: %s"), *SelectedTarget.GetActor()->GetName()));
 
+	return SelectedTarget;
+
+}
+
+FHitResult USelectionComponent::GetSelectTarget()
+{
+	return SelectedTarget;
+}
+
+FHitResult USelectionComponent::GetHoverTarget()
+{
+	return HoverTarget;
 }
 
 

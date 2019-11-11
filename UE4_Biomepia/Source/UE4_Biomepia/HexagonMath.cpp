@@ -83,7 +83,9 @@ FVector UHexagonMath::AverageCenteriod(const TArray<FVector>&  centeriods, const
 	return centeriod /= size;
 }
 
-
+//Hexagonal Geometry
+//
+//
 FVector2D UHexagonMath::HexagonSize(float radius, bool isPointyHex)
 {
 	FVector2D size = isPointyHex == true ? FVector2D(FMath::Sqrt(3) * radius, 2 * radius) : FVector2D(2 * radius, FMath::Sqrt(3) * radius);
@@ -126,10 +128,7 @@ float UHexagonMath::GetHexagonRad(int sideIndex, bool isPointyHex)
 	return angleRad;
 }
 
-FHexagonShape UHexagonMath::GetHexagonShape(FVector position, float radius, float height, bool isPointyHex)
-{
-	return FHexagonShape(position, radius, height, isPointyHex);
-}
+
 
 TArray<FVector> UHexagonMath::GetHexagonTrapezoidsCenters(const float radius, const float height, const FVector position, const bool isPointyHex, const bool isCenteriod)
 {
@@ -155,13 +154,13 @@ TArray<FVector> UHexagonMath::GetHexagonTrapezoidsCenters(const float radius, co
 
 	if(isPointyHex)
 	{
-		centers.Add({ position.X + offset, position.Y, position.Z + height});
-		centers.Add({ position.X - offset, position.Y, position.Z + height});
+		centers.Add({ position.X + offset, position.Y, position.Z});
+		centers.Add({ position.X - offset, position.Y, position.Z});
 	}
 	else
 	{
-		centers.Add({ position.X, position.Y + offset, position.Z + height});
-		centers.Add({ position.X, position.Y - offset, position.Z + height});
+		centers.Add({ position.X, position.Y + offset, position.Z});
+		centers.Add({ position.X, position.Y - offset, position.Z});
 	}
 
 	return centers;
@@ -174,7 +173,7 @@ TArray<FVector> UHexagonMath::GetHexagonRhombusCenters(float radius, float heigh
 	for (size_t i = 0; i < 6; i+=2)
 	{
 		const FVector2D centerOffset = GetHexagonCorner(radius / 2, i, { position.X, position.Y }, isPointyHex);
-		centers.Add({ centerOffset.X, centerOffset.Y, position.Z + height });
+		centers.Add({ centerOffset.X, centerOffset.Y, position.Z });
 	}
 
 	return centers;
@@ -193,7 +192,7 @@ TArray<FVector> UHexagonMath::GetHexagonTrianglesCenters(float radius, float hei
 			const FVector2D v2 = GetHexagonCorner(radius, (i + 1) % 6, { position.X, position.Y }, isPointyHex);
 
 			const FVector2D centriod = TriangleCenteriod({ position.X, position.Y }, v1, v2);
-			centers.Add(FVector(centriod.X, centriod.Y, height));
+			centers.Add(FVector(centriod.X, centriod.Y, position.Z));
 		}
 	
 	}
@@ -202,12 +201,15 @@ TArray<FVector> UHexagonMath::GetHexagonTrianglesCenters(float radius, float hei
 		for (size_t i = 0; i < 6; i++)
 		{
 			const FVector2D centerOffset = GetHexagonCorner(radius / 2, i, { position.X, position.Y }, !isPointyHex);
-			centers.Add({ centerOffset.X, centerOffset.Y, position.Z + height });
+			centers.Add({ centerOffset.X, centerOffset.Y, position.Z  });
 		}
 	}
 	return centers;
 }
 
+//Hexagonal Mathematics
+//
+//
 FHexCubeCoordinates UHexagonMath::HexagonAdd(FHexCubeCoordinates a, FHexCubeCoordinates b)
 {
 	return FHexCubeCoordinates(a.Q + b.Q, a.R + b.R, a.S + b.S);

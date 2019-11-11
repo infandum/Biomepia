@@ -17,9 +17,10 @@ struct FHexagonShape
 	//explicit FHexagonShape(FVector position, bool isPointyHex = true);
 	explicit FHexagonShape(FVector position, float radius = 100.0f, float height = 100.0f, bool isPointyHex = true);
 
+public:
 	FVector GetCenter() const
 	{
-		return Center;
+		return {Center.X, Center.Y, Height };
 	}
 
 	float GetRadius() const
@@ -73,12 +74,23 @@ class UE4_BIOMEPIA_API UHexagonShapeFunctions : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(BlueprintCallable, Category = "Hexagon Geometry")
+		static FHexagonShape GetHexagonShape(FVector position = FVector(0, 0, 0), float radius = 0.0f, float height = 0.0f, bool isPointyHex = true);
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
 		static FVector GetCenter(const FHexagonShape& hexagon);
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
 		static TArray<FVector> GetCorners(const FHexagonShape& hexagon);
+
+	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
+		static float GetRadius(const FHexagonShape& hexagon);
+
+	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
+		static float GetHeight(const FHexagonShape& hexagon);
+
+	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
+		static bool GetIsPointyHexagon(const FHexagonShape& hexagon);
 
 	UFUNCTION(BlueprintPure, Category = "Hexagon Shape")
 		static FVector GetCorner(const FHexagonShape& hexagon, int cornerIndex = 0);
